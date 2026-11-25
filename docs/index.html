@@ -3,97 +3,174 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ParadigmShift – Download</title>
-<meta name="description" content="Download ParadigmShift, an app for designing and running fMRI paradigms. Windows, macOS and Linux – nothing to install.">
+<title>ParadigmShift – design and run fMRI paradigms</title>
+<meta name="description" content="Download ParadigmShift, a free app for designing and running fMRI paradigms. Windows, macOS and Linux – nothing to install.">
+<meta property="og:title" content="ParadigmShift – design and run fMRI paradigms">
+<meta property="og:image" content="https://kilianjn.github.io/fMRI_paradigmShift_releases/screenshots/01_editor.png">
 <link rel="icon" type="image/png" href="icon.png">
 <style>
-  :root { --bg: #ffffff; --text: #1b1e25; --dim: #5b6272; --line: #dde1e8; --box: #f6f7f9; --accent: #b86e00; color-scheme: light dark; }
+  :root { --bg: #ffffff; --text: #1b1e25; --dim: #5b6272; --line: #dde1e8; --box: #f6f7f9;
+          --accent: #b86e00; --on-accent: #ffffff; color-scheme: light dark; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #16181d; --text: #e6e8ee; --dim: #9aa1b0; --line: #323743; --box: #1e2128; --accent: #f5a524; }
+    :root { --bg: #16181d; --text: #e6e8ee; --dim: #9aa1b0; --line: #323743; --box: #1e2128;
+            --accent: #f5a524; --on-accent: #1a1305; }
   }
+  * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--text);
          font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
-  main { max-width: 720px; margin: 0 auto; padding: 40px 16px 48px; }
-  h1 { display: flex; align-items: center; gap: 12px; font-size: 30px; margin: 0 0 8px; }
-  h1 img { width: 44px; height: 44px; border-radius: 9px; }
-  h2 { font-size: 19px; margin: 0 0 4px; }
-  p { margin: 0 0 12px; }
-  .dim { color: var(--dim); }
   a { color: var(--accent); }
-  code { font: 14px ui-monospace, Menlo, Consolas, monospace; overflow-wrap: anywhere; }
-  .os { border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; margin: 16px 0; background: var(--box); }
+  a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+  img { display: block; max-width: 100%; height: auto; }
+  code { font: 13.5px ui-monospace, Menlo, Consolas, monospace; overflow-wrap: anywhere; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 16px; }
+
+  header { border-bottom: 1px solid var(--line); }
+  header .wrap { display: flex; align-items: center; justify-content: space-between; height: 58px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; color: var(--text); text-decoration: none; }
+  .brand img { width: 28px; height: 28px; border-radius: 7px; }
+  header a.gh { color: var(--dim); text-decoration: none; font-size: 15px; }
+  header a.gh:hover { color: var(--text); }
+
+  .hero { text-align: center; padding: 56px 0 36px; }
+  .hero h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.15; margin: 0 0 14px; letter-spacing: -0.01em; }
+  .hero p { color: var(--dim); font-size: 18px; max-width: 640px; margin: 0 auto 26px; }
+  .button { display: inline-block; padding: 12px 22px; border-radius: 9px; background: var(--accent); color: var(--on-accent);
+            font-weight: 700; text-decoration: none; }
+  .button.big { font-size: 18px; padding: 14px 28px; }
+  .button:hover { filter: brightness(1.06); }
+  .meta { color: var(--dim); font-size: 14px; margin-top: 12px; }
+
+  .shot { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; box-shadow: 0 8px 28px rgba(0,0,0,.18); }
+  figure { margin: 0; }
+  figcaption { color: var(--dim); font-size: 14px; text-align: center; margin-top: 10px; }
+
+  section { padding: 52px 0 0; }
+  h2 { font-size: 24px; margin: 0 0 18px; text-align: center; }
+  .downloads { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .os { border: 1px solid var(--line); border-radius: 12px; background: var(--box); padding: 20px; }
   .os.mine { border: 2px solid var(--accent); }
-  .os .yours { display: none; color: var(--accent); font-weight: 600; font-size: 14px; }
+  .os h3 { margin: 0; font-size: 19px; }
+  .os .yours { display: none; color: var(--accent); font-size: 13px; font-weight: 600; }
   .os.mine .yours { display: inline; }
-  .button { display: inline-block; margin: 8px 0 10px; padding: 10px 18px; border-radius: 8px; background: var(--accent);
-            color: var(--bg); font-weight: 700; text-decoration: none; }
-  .button:focus-visible { outline: 3px solid var(--text); outline-offset: 2px; }
-  ol { margin: 0; padding-left: 20px; }
-  li { margin-bottom: 4px; }
-  footer { margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 14px; }
+  .os .req { color: var(--dim); font-size: 14px; margin: 2px 0 14px; }
+  .os ol { margin: 14px 0 0; padding-left: 18px; font-size: 14.5px; }
+  .os li { margin-bottom: 5px; }
+
+  .more { margin-top: 52px; text-align: center; border: 1px solid var(--line); border-radius: 12px; padding: 28px 20px; background: var(--box); }
+  .more p { margin: 0 auto 18px; max-width: 620px; color: var(--dim); }
+
+  footer { margin-top: 56px; border-top: 1px solid var(--line); padding: 22px 0 40px; color: var(--dim); font-size: 14px; }
+  footer p { margin: 6px 0; }
+
+  @media (max-width: 820px) {
+    .downloads { grid-template-columns: 1fr; }
+    .hero { padding-top: 36px; }
+  }
 </style>
 </head>
 <body>
-<main>
-  <h1><img src="icon.png" alt="">ParadigmShift</h1>
-  <p>An app for designing and running fMRI paradigms: build the run on a timeline, preview what the participant sees,
-    then run it in the scanner. Free, nothing to install.</p>
-  <p class="dim" id="version">Downloads always fetch the latest version.</p>
+<header>
+  <div class="wrap">
+    <a class="brand" href="#"><img src="icon.png" alt="">ParadigmShift</a>
+    <a class="gh" href="https://github.com/kilianjn/fMRI_paradigmShift_releases#readme">Documentation on GitHub</a>
+  </div>
+</header>
 
-  <div class="os" data-os="windows">
-    <h2>Windows <span class="yours">· your computer</span></h2>
-    <span class="dim">Windows 10 or 11, 64-bit</span><br>
-    <a class="button" href="https://github.com/kilianjn/fMRI_paradigmShift_releases/releases/latest/download/ParadigmShift-windows-x64.exe">Download for Windows</a>
-    <ol>
-      <li>Double-click the downloaded <b>ParadigmShift-windows-x64.exe</b>.</li>
-      <li>If Windows shows “Windows protected your PC”: click <b>More info</b>, then <b>Run anyway</b>.</li>
-    </ol>
+<main class="wrap">
+  <div class="hero">
+    <h1>Design and run fMRI paradigms</h1>
+    <p>Build the run on a timeline like a video edit, preview exactly what the participant will see, then press
+      <b>Run in scanner</b> – button presses and ratings land in BIDS-style <code>events.tsv</code> files.</p>
+    <a class="button big" id="main" href="#download">Download</a>
+    <div class="meta"><span id="version">Free</span> · nothing to install · Windows, macOS and Linux</div>
   </div>
 
-  <div class="os" data-os="macos">
-    <h2>macOS <span class="yours">· your computer</span></h2>
-    <span class="dim">macOS 11 or newer, Apple Silicon and Intel</span><br>
-    <a class="button" href="https://github.com/kilianjn/fMRI_paradigmShift_releases/releases/latest/download/ParadigmShift-macos-universal.zip">Download for macOS</a>
-    <ol>
-      <li>Double-click the downloaded <b>.zip</b> and drag <b>ParadigmShift.app</b> into <b>Applications</b>.</li>
-      <li>If macOS refuses to open it: <b>System Settings → Privacy &amp; Security</b> → <b>Open Anyway</b>
-        (macOS 14 and older: right-click the app → <b>Open</b>). Needed only once.</li>
-    </ol>
+  <figure>
+    <div class="shot"><img src="screenshots/01_editor.png" width="1560" height="940"
+      alt="The ParadigmShift editor with blocks on the left, the participant view in the middle, the inspector on the right and the timeline below"></div>
+    <figcaption>The editor: blocks, participant preview, inspector and timeline</figcaption>
+  </figure>
+
+  <section id="download">
+    <h2>Download</h2>
+    <div class="downloads">
+      <div class="os" data-os="windows">
+        <h3>Windows <span class="yours">· your computer</span></h3>
+        <div class="req">Windows 10 or 11, 64-bit</div>
+        <a class="button" href="https://github.com/kilianjn/fMRI_paradigmShift_releases/releases/latest/download/ParadigmShift-windows-x64.exe">Download .exe</a>
+        <ol>
+          <li>Double-click <b>ParadigmShift-windows-x64.exe</b>.</li>
+          <li>If Windows shows “Windows protected your PC”: <b>More info</b> → <b>Run anyway</b>.</li>
+        </ol>
+      </div>
+      <div class="os" data-os="macos">
+        <h3>macOS <span class="yours">· your computer</span></h3>
+        <div class="req">macOS 11 or newer, Apple Silicon and Intel</div>
+        <a class="button" href="https://github.com/kilianjn/fMRI_paradigmShift_releases/releases/latest/download/ParadigmShift-macos-universal.zip">Download .zip</a>
+        <ol>
+          <li>Unzip and drag <b>ParadigmShift.app</b> into <b>Applications</b>.</li>
+          <li>If macOS refuses to open it: <b>System Settings → Privacy &amp; Security → Open Anyway</b>
+            (macOS 14 and older: right-click → <b>Open</b>).</li>
+        </ol>
+      </div>
+      <div class="os" data-os="linux">
+        <h3>Linux <span class="yours">· your computer</span></h3>
+        <div class="req">64-bit (x86-64)</div>
+        <a class="button" href="https://github.com/kilianjn/fMRI_paradigmShift_releases/releases/latest/download/ParadigmShift-linux-x86_64.tar.gz">Download .tar.gz</a>
+        <ol>
+          <li><code>tar xzf ParadigmShift-linux-x86_64.tar.gz</code></li>
+          <li><code>./ParadigmShift-linux-x86_64/paradigmshift</code></li>
+        </ol>
+      </div>
+    </div>
+    <p class="meta" style="text-align:center">Older versions and release notes: <a href="https://github.com/kilianjn/fMRI_paradigmShift_releases/releases">all versions</a></p>
+  </section>
+
+  <section>
+    <figure>
+      <div class="shot"><img loading="lazy" src="screenshots/08_control_room.png" width="1560" height="940"
+        alt="The control room during a run: live mirror of the participant screen, volume count and button presses"></div>
+      <figcaption>During a run: the control room with a live mirror of the participant screen</figcaption>
+    </figure>
+  </section>
+
+  <div class="more">
+    <p>Ready-made tasks (Hariri, emotion regulation, MID, Go/No-Go, Stroop, N-back …), quick designs from your own
+      pictures, trigger and button boxes of any manufacturer, presentation mode and more – the full description and
+      manual are on GitHub.</p>
+    <a class="button" href="https://github.com/kilianjn/fMRI_paradigmShift_releases#readme">Read the full description</a>
   </div>
+</main>
 
-  <div class="os" data-os="linux">
-    <h2>Linux <span class="yours">· your computer</span></h2>
-    <span class="dim">64-bit (x86-64)</span><br>
-    <a class="button" href="https://github.com/kilianjn/fMRI_paradigmShift_releases/releases/latest/download/ParadigmShift-linux-x86_64.tar.gz">Download for Linux</a>
-    <ol>
-      <li><code>tar xzf ParadigmShift-linux-x86_64.tar.gz</code></li>
-      <li><code>./ParadigmShift-linux-x86_64/paradigmshift</code></li>
-    </ol>
-  </div>
-
-  <p><a href="https://github.com/kilianjn/fMRI_paradigmShift_releases#readme">Documentation</a> ·
-    <a href="https://github.com/kilianjn/fMRI_paradigmShift_releases/releases">All versions</a> ·
-    <a href="https://github.com/kilianjn/fMRI_paradigmShift_releases/issues">Report a problem</a></p>
-
-  <footer class="dim">
+<footer>
+  <div class="wrap">
+    <p><a href="https://github.com/kilianjn/fMRI_paradigmShift_releases/issues">Report a problem</a> ·
+      Please test your setup with the built-in function test before scanning participants.</p>
     <p>Works with scanner trigger interfaces and response button boxes of any manufacturer (key presses or serial port).
       ParadigmShift is an independent project, not affiliated with any hardware manufacturer.</p>
     <p>Made by Kilian Jain together with Claude, an AI by Anthropic.</p>
-  </footer>
-</main>
+  </div>
+</footer>
+
 <script>
-  // mark the download for this computer (all downloads stay available)
+  // suggest the download for this computer (all downloads stay available)
   var ua = navigator.userAgent, os = null;
+  var names = { windows: "Windows", macos: "macOS", linux: "Linux" };
   if (/Android|iPhone|iPad|iPod/i.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1)) os = null;
   else if (/Windows/i.test(ua)) os = "windows";
   else if (/Macintosh/i.test(ua)) os = "macos";
   else if (/Linux/i.test(ua)) os = "linux";
   var box = os && document.querySelector('.os[data-os="' + os + '"]');
-  if (box) { box.classList.add("mine"); box.parentNode.insertBefore(box, document.querySelector(".os")); }
-  // show the version number of the latest release (the links work without it)
+  if (box) {
+    box.classList.add("mine");
+    var main = document.getElementById("main");
+    main.href = box.querySelector("a.button").href;
+    main.textContent = "Download for " + names[os];
+  }
+  // version number of the latest release (the links work without it)
   fetch("https://api.github.com/repos/kilianjn/fMRI_paradigmShift_releases/releases/latest")
     .then(function (r) { return r.ok ? r.json() : null; })
-    .then(function (rel) { if (rel && rel.tag_name) document.getElementById("version").textContent = "Latest version: " + rel.tag_name.replace(/^v/, ""); })
+    .then(function (rel) { if (rel && rel.tag_name) document.getElementById("version").textContent = "Version " + rel.tag_name.replace(/^v/, "") + " · free"; })
     .catch(function () {});
 </script>
 </body>
