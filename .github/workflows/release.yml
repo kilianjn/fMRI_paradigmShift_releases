@@ -1,7 +1,8 @@
 name: Build & release
 
 # Builds ParadigmShift for Windows, macOS and Linux from its source repository (private) and publishes the
-# downloads here as a GitHub Release "v<version>"; also refreshes this repository's README and screenshots.
+# downloads here as a GitHub Release "v<version>"; also refreshes this repository's README, the screenshots and
+# the website in docs/ (GitHub Pages: branch main, folder /docs – from the source's site/ folder).
 #
 #  * repository_dispatch "release" – sent by the source repository on every push to its main branch
 #  * workflow_dispatch             – by hand (Actions → Build & release → Run workflow), any commit or branch
@@ -164,7 +165,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           path: public
-      - name: Source (README, screenshots, version)
+      - name: Source (README, screenshots, website, version)
         uses: actions/checkout@v4
         with:
           repository: ${{ env.SOURCE_REPO }}
@@ -175,12 +176,13 @@ jobs:
           sparse-checkout: |
             docs/screenshots
             scripts
+            site
       - uses: actions/download-artifact@v4
         with:
           path: dist
           merge-multiple: true
 
-      - name: Refresh README and screenshots
+      - name: Refresh README, screenshots and website
         run: |
           set -e
           VERSION=$(grep -m1 '^version' source/Cargo.toml | cut -d'"' -f2)
@@ -188,6 +190,8 @@ jobs:
           rm -rf public/docs/screenshots
           mkdir -p public/docs
           cp -r source/docs/screenshots public/docs/
+          # the website (GitHub Pages serves docs/): its pages next to the screenshots
+          if [ -d source/site ]; then cp -r source/site/. public/docs/; touch public/docs/.nojekyll; fi
           cd public
           git add -A README.md docs
           if git diff --cached --quiet; then

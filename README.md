@@ -17,7 +17,8 @@ exactly what the participant will see, then press **Run in scanner**. The app wa
 
 ## Download
 
-Get the file for your computer from the **[latest release](https://github.com/kilianjn/fMRI_paradigmShift_releases/releases/latest)** – nothing to install:
+**Website with downloads: <https://kilianjn.github.io/fMRI_paradigmShift_releases/>** – or get the file for your computer from
+the **[latest release](https://github.com/kilianjn/fMRI_paradigmShift_releases/releases/latest)** – nothing to install:
 
 | Computer | File | How to start |
 |---|---|---|
