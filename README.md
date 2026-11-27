@@ -174,9 +174,10 @@ participant's monitor and mirrors it in the main window – the participant and 
 (full screen on the chosen monitor, usually the projector). *Show on screen* lists the monitors by the name they
 report themselves over HDMI/DisplayPort – the name the Windows display settings show, e.g. “2: EPSON PJ ·
 1280×800” – with the main screen marked; the first screen that is not the main screen is preselected.
-On macOS the participant screen does not use macOS's own full-screen mode (which moves a window into a Space of its
-own and can hide the control room): it is laid over the chosen screen, above the menu bar and the Dock, and the
-control room stays where it is.
+On macOS the participant screen uses macOS's full screen, a Space of its own (as in Mission Control). With one
+screen, swipe with three fingers (or Ctrl+← / →) between it and the control room on your desktop. With a projector
+or second screen, keep *Displays have separate Spaces* switched on (System Settings → Desktop & Dock, the default),
+so the control room stays visible on the main screen.
 
 * The participant only ever sees the paradigm. Before the start – including the **dummy scans** – they see a
   fixation cross, an empty screen or a text of your choice; after the run an end text.
